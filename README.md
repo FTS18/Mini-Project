@@ -25,5 +25,5 @@ DailyDigest is a modern news web application that automatically detects the user
 
 ---
 
-## Project Structure
+
 
