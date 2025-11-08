@@ -1,6 +1,6 @@
-//GNews API Key
-const API_KEY = "b33d5cfbf0729fdbf6b403201c7df44d";
-const BASE_URL = "https://gnews.io/api/v4/search";
+// NewsAPI.org API Key - supports CORS, direct browser calls allowed
+const API_KEY = "ce5d72f4a1cb4d5586f187b651480642"; // Your NewsAPI key
+const BASE_URL = "https://newsapi.org/v2/everything";
 
 // DOM Elements
 const locationDisplay = document.getElementById('location-display');
@@ -37,7 +37,7 @@ async function fetchAndRenderNews(query, category) {
 
     let finalQuery = (category === "top") ? query : category;
 
-    const apiUrl = `${BASE_URL}?q=${encodeURIComponent(finalQuery)}&lang=en&max=12&apikey=${API_KEY}`;
+    const apiUrl = `${BASE_URL}?q=${encodeURIComponent(finalQuery)}&language=en&pageSize=12&sortBy=publishedAt&apiKey=${API_KEY}`;
 
     try {
         const response = await fetch(apiUrl);
@@ -67,8 +67,9 @@ function renderNews(articles) {
         card.style.transitionDelay = `${index * 0.08}s`;
 
         card.innerHTML = `
-            <img class="news-card-image" src="${article.image || ''}"
-                 onerror="this.src='https://via.placeholder.com/400x200?text=No+Image';">
+            <img class="news-card-image" src="${article.urlToImage || 'https://via.placeholder.com/400x200?text=No+Image'}"
+                 onerror="this.src='https://via.placeholder.com/400x200?text=No+Image';"
+                 alt="News image">
             <div class="news-card-content">
                 <span class="news-source">${article.source.name}</span>
                 <h3 class="news-title">${article.title}</h3>
